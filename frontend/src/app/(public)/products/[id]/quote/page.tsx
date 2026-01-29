@@ -43,12 +43,18 @@ export default function QuotePage() {
     setError('');
     setLoading(true);
 
+    if (!product) {
+      setError('Product not found');
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await quoteService.create({
         ...formData,
         productId,
         productName: product.name,
-        productPrice: parseFloat(product.price),
+        productPrice: parseFloat(String(product.price)),
       });
       setSuccess(true);
       
@@ -183,7 +189,7 @@ export default function QuotePage() {
               <h3 className="font-semibold text-gray-900 mb-2">Product Details</h3>
               <p className="text-gray-700">{product.name}</p>
               <p className="text-sm text-gray-600 mt-1">{product.description}</p>
-              <p className="text-lg font-bold text-primary-600 mt-2">₹{parseFloat(product.price).toFixed(2)}</p>
+              <p className="text-lg font-bold text-primary-600 mt-2">₹{parseFloat(String(product.price)).toFixed(2)}</p>
             </div>
 
             <div className="flex gap-4">

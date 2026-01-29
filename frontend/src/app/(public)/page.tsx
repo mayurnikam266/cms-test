@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
+import { Category, Product } from '@/types';
 
 async function getProducts() {
   try {
@@ -136,7 +137,7 @@ export default async function HomePage() {
                   Shop by Category
                 </h2>
                 <div className="space-y-2">
-                  {categories.map((category) => (
+                  {categories.map((category: Category) => (
                     <Link 
                       key={category.id}
                       href={`/products?category=${category.id}`}
@@ -165,7 +166,7 @@ export default async function HomePage() {
               
               {products.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {products.map((product) => (
+                  {products.map((product: Product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}
                 </div>

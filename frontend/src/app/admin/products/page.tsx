@@ -123,7 +123,7 @@ export default function AdminProductsPage() {
                     {product.category?.name || 'Uncategorized'}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium">
-                    ₹{parseFloat(product.price).toFixed(2)}
+                    ₹{parseFloat(String(product.price)).toFixed(2)}
                   </td>
                   <td className="px-6 py-4 text-sm">{product.stock}</td>
                   <td className="px-6 py-4">

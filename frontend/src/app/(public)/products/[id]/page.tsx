@@ -99,7 +99,7 @@ export default function ProductDetailPage() {
           </div>
           <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
           <div className="text-4xl font-bold text-primary-600 mb-6">
-            ₹{parseFloat(product.price).toFixed(2)}
+            ₹{parseFloat(String(product.price)).toFixed(2)}
           </div>
 
           {product.stock > 0 ? (

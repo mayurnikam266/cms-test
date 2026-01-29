@@ -33,6 +33,7 @@ export interface Product {
   stock: number;
   sku?: string;
   featured?: boolean;
+  categoryId?: string;
   category: Category;
   images: ProductImage[];
   createdAt: string;

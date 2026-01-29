@@ -33,7 +33,7 @@ export default function ProductsPage() {
         productService.getAll(selectedCategory),
         categoryService.getAll(),
       ]);
-      setProducts(productsData.data || productsData);
+      setProducts(productsData);
       setCategories(categoriesData);
     } catch (error) {
       console.error('Failed to load products:', error);
