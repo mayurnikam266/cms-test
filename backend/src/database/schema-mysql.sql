@@ -117,8 +117,8 @@ VALUES (
 
 -- Insert default categories
 INSERT INTO categories (id, name, description, icon, isActive) VALUES
-    (UUID(), 'Solar Panels', 'High-efficiency solar panels for residential and commercial use', '☀️', true),
-    (UUID(), 'Inverters', 'Solar inverters and power conversion systems', '⚡', true),
-    (UUID(), 'Batteries', 'Energy storage solutions and battery systems', '🔋', true),
-    (UUID(), 'Electronics', 'Electronic components and accessories', '📱', true),
-    (UUID(), 'Accessories', 'Cables, connectors, and mounting equipment', '🔧', true);
+    (UUID(), 'Solar Panels', 'High-efficiency solar panels for residential and commercial use', 'solar', true),
+    (UUID(), 'Inverters', 'Solar inverters and power conversion systems', 'inverter', true),
+    (UUID(), 'Batteries', 'Energy storage solutions and battery systems', 'battery', true),
+    (UUID(), 'Electronics', 'Electronic components and accessories', 'electronics', true),
+    (UUID(), 'Accessories', 'Cables, connectors, and mounting equipment', 'accessories', true);

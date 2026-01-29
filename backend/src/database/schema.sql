@@ -109,11 +109,11 @@ VALUES (
 
 -- Insert default categories
 INSERT INTO categories (name, description, icon, "isActive") VALUES
-    ('Solar Panels', 'High-efficiency solar panels for residential and commercial use', '☀️', true),
-    ('Inverters', 'Solar inverters and power conversion systems', '⚡', true),
-    ('Batteries', 'Energy storage solutions and battery systems', '🔋', true),
-    ('Electronics', 'Electronic components and accessories', '📱', true),
-    ('Accessories', 'Cables, connectors, and mounting equipment', '🔧', true);
+    ('Solar Panels', 'High-efficiency solar panels for residential and commercial use', 'solar', true),
+    ('Inverters', 'Solar inverters and power conversion systems', 'inverter', true),
+    ('Batteries', 'Energy storage solutions and battery systems', 'battery', true),
+    ('Electronics', 'Electronic components and accessories', 'electronics', true),
+    ('Accessories', 'Cables, connectors, and mounting equipment', 'accessories', true);
 
 -- Update timestamp trigger
 CREATE OR REPLACE FUNCTION update_updated_at_column()
