@@ -3,15 +3,44 @@
 
 ---
 
+## 🎯 Two Deployment Options
+
+### Option A: Node.js Blueprint (Faster - Recommended!) ✅
+
+**What's Pre-installed:**
+- ✅ Node.js (v18 or v20)
+- ✅ Nginx (Web server)
+- ✅ MariaDB (MySQL-compatible database)
+- ✅ Certbot (for SSL)
+
+**Setup time:** ~30 minutes  
+**Best for:** Quick deployment
+
+---
+
+### Option B: Ubuntu Blueprint (Full Control)
+
+**What's included:**
+- ✅ Ubuntu 22.04 LTS only
+- ❌ Must install Node.js, MySQL, Nginx
+
+**Setup time:** ~45-60 minutes  
+**Best for:** Custom configuration
+
+---
+
+**This guide covers BOTH options!** Instructions are marked clearly.
+
+---
+
 ## 📋 What You'll Deploy
 
 - NestJS Backend (Node.js)
 - Next.js Frontend
-- MySQL Database
+- MySQL/MariaDB Database
 - Nginx Reverse Proxy
 - PM2 Process Manager
 
-**Time Required:** 45-60 minutes  
 **Cost:** $10-20/month
 
 ---
@@ -25,13 +54,17 @@
 3. Select:
    - **Instance location:** Choose your region (e.g., Mumbai, US East, Singapore)
    - **Platform:** Linux/Unix
-   - **Blueprint:** OS Only → **Ubuntu 22.04 LTS**
+   - **Blueprint:** Choose ONE of these:
+     - **Option A (Recommended):** Apps + OS → **Node.js** (Includes Node.js + Nginx + MariaDB pre-installed) ✅
+     - **Option B:** OS Only → **Ubuntu 22.04 LTS** (Manual installation)
 4. Choose instance plan:
    - **$10/month:** 2GB RAM, 1 vCPU, 60GB SSD (Recommended)
    - **$20/month:** 4GB RAM, 2 vCPUs (For more traffic)
 5. Name: `test-agency-prod`
 6. Click **"Create instance"**
 7. Wait 2-3 minutes until status shows "Running"
+
+**Note:** If you chose **Node.js blueprint**, you can skip installing Node.js, Nginx, and database in the next steps!
 
 ### 1.2 Setup Static IP
 
@@ -79,6 +112,8 @@ sudo apt upgrade -y
 
 ### 3.2 Install Node.js 20
 
+**If you used Ubuntu blueprint (Option B), install Node.js:**
+
 ```bash
 # Add Node.js repository
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
@@ -91,7 +126,23 @@ node --version   # Should show v20.x
 npm --version
 ```
 
-### 3.3 Install MySQL
+**If you used Node.js blueprint (Option A), skip to Step 3.3 - Node.js is already installed!**
+
+```bash
+# Just verify Node.js version
+node --version   # Should show v18.x or v20.x
+npm --version
+```
+
+### 3.3 Setup Database (MySQL or MariaDB)
+
+**Choose based on your blueprint:**
+
+---
+
+#### Option A: If Using Node.js Blueprint (MariaDB Pre-installed) ✅
+
+MariaDB is already installed! Just configure it:
 
 ```bash
 # Install MySQL
@@ -121,8 +172,10 @@ mysql -u root -p
 
 ### 3.4 Create Database and User
 
+**Works for both MySQL and MariaDB:**
+
 ```sql
--- In MySQL prompt, run:
+-- In MySQL/MariaDB prompt, run:
 
 CREATE DATABASE test_agency_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -367,8 +420,19 @@ curl http://localhost:3001
 
 ### 9.1 Install Nginx
 
+**If using Node.js blueprint:** Nginx is already installed! Skip installation.
+
+**If using Ubuntu blueprint:** Install Nginx:
+
 ```bash
 sudo apt install -y nginx
+```
+
+**For both:** Verify installation:
+
+```bash
+nginx -v
+sudo systemctl status nginx
 ```
 
 ### 9.2 Create Nginx Configuration
@@ -877,13 +941,17 @@ pm2 flush              # Clear log files
 pm2 save               # Save process list
 ```
 
-### Nginx Commands
+### Nginx/MariaDB Commands
 
 ```bash
-sudo nginx -t                      # Test configuration
-sudo systemctl start nginx         # Start Nginx
-sudo systemctl stop nginx          # Stop Nginx
-sudo systemctl restart nginx       # Restart Nginx
+# Both MySQL and MariaDB use same commands
+mysql -u testuser -p test_agency_db              # Connect to database
+mysqldump -u testuser -p test_agency_db > backup.sql   # Backup database
+mysql -u testuser -p test_agency_db < backup.sql       # Restore database
+
+# Service commands (use appropriate one for your system)
+sudo systemctl restart mysql       # For MySQL
+sudo systemctl restart mariadb     # For MariaDB
 sudo systemctl reload nginx        # Reload config without restart
 sudo systemctl status nginx        # Check status
 ```
