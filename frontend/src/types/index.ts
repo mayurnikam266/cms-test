@@ -49,6 +49,15 @@ export interface Product {
   displayOrder?: number;
 }
 
+export interface Announcement {
+  _id: string;
+  title: string;
+  description?: string;
+  image?: any;
+  displayOrder?: number;
+  isActive: boolean;
+}
+
 export interface ApiResponse<T> {
   data: T;
   message?: string;
