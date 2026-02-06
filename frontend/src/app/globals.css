@@ -82,10 +82,9 @@ body.translated {
   top: 0 !important;
 }
 
-/* Style the translate dropdown - only show arrow */
+/* Style the translate dropdown - make it visible and clickable */
 .goog-te-gadget {
   font-family: inherit !important;
-  color: transparent !important;
   line-height: 1 !important;
 }
 
@@ -93,53 +92,52 @@ body.translated {
   display: none !important;
 }
 
-/* Hide the text, only show dropdown arrow */
 .goog-te-gadget-simple {
-  background-color: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  font-size: 0 !important;
+  background-color: #1f2937 !important;
+  border: 1px solid #4b5563 !important;
+  border-radius: 0.5rem !important;
+  padding: 0.375rem 0.75rem !important;
+  font-size: 0.75rem !important;
   cursor: pointer !important;
   display: inline-flex !important;
   align-items: center !important;
+  transition: all 0.2s ease !important;
 }
 
 .goog-te-gadget-simple:hover {
-  opacity: 0.8 !important;
+  border-color: #fbbf24 !important;
+  background-color: #374151 !important;
 }
 
-/* Hide language name, keep only arrow */
+/* Show language name and arrow */
 .goog-te-gadget-simple .goog-te-menu-value {
-  color: #9ca3af !important;
-  font-size: 0 !important;
+  color: #d1d5db !important;
+  font-size: 0.75rem !important;
+  font-family: inherit !important;
 }
 
 .goog-te-gadget-simple .goog-te-menu-value span {
-  font-size: 0 !important;
-  border: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  color: #9ca3af !important;
+  color: #d1d5db !important;
 }
 
-/* Show only the dropdown arrow */
-.goog-te-gadget-simple .goog-te-menu-value span:last-child {
-  display: inline-block !important;
-  font-size: 16px !important;
-  line-height: 1 !important;
-  color: #9ca3af !important;
-  transition: color 0.2s !important;
+.goog-te-gadget-simple .goog-te-menu-value span:first-child {
+  margin-right: 0.25rem !important;
 }
 
-.goog-te-gadget-simple:hover .goog-te-menu-value span:last-child {
+.goog-te-gadget-simple:hover .goog-te-menu-value,
+.goog-te-gadget-simple:hover .goog-te-menu-value span {
   color: #fbbf24 !important;
 }
 
 /* Mobile optimization */
 @media (max-width: 640px) {
-  .goog-te-gadget-simple .goog-te-menu-value span:last-child {
-    font-size: 14px !important;
+  .goog-te-gadget-simple {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.625rem !important;
+  }
+  
+  .goog-te-gadget-simple .goog-te-menu-value {
+    font-size: 0.625rem !important;
   }
 }
 
@@ -151,6 +149,7 @@ body.translated {
   background: #1f2937 !important;
   max-height: 400px !important;
   overflow-y: auto !important;
+  margin-top: 0.5rem !important;
 }
 
 .goog-te-menu2 {
@@ -161,6 +160,7 @@ body.translated {
 .goog-te-menu2-item div,
 .goog-te-menu2-item span {
   color: #d1d5db !important;
+  padding: 0.5rem 1rem !important;
 }
 
 .goog-te-menu2-item:hover {

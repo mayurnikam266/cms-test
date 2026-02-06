@@ -29,7 +29,7 @@ export default function LanguageSelector() {
           {
             pageLanguage: 'en',
             includedLanguages: 'en,hi,mr',
-            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+            layout: window.google.translate.TranslateElement.InlineLayout.HORIZONTAL,
             autoDisplay: false,
           },
           'google_translate_element'
@@ -46,9 +46,6 @@ export default function LanguageSelector() {
   }, []);
 
   return (
-    <div className="flex items-center gap-1.5">
-      <span className="text-[10px] sm:text-xs font-medium text-gray-400">ENG</span>
-      <div id="google_translate_element" className="translate-widget"></div>
-    </div>
+    <div id="google_translate_element" className="translate-widget"></div>
   );
 }
