@@ -44,11 +44,20 @@ export default function LanguageSelector() {
 
   const changeLanguage = (lang: string) => {
     setCurrentLang(lang);
-    const selectElement = document.querySelector('.goog-te-combo') as HTMLSelectElement;
-    if (selectElement) {
-      selectElement.value = lang;
-      selectElement.dispatchEvent(new Event('change'));
-    }
+    
+    // Wait for Google Translate to load
+    const checkAndChange = () => {
+      const selectElement = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+      if (selectElement) {
+        selectElement.value = lang;
+        selectElement.dispatchEvent(new Event('change', { bubbles: true }));
+      } else {
+        // Retry after a short delay if not loaded yet
+        setTimeout(checkAndChange, 100);
+      }
+    };
+    
+    setTimeout(checkAndChange, 100);
   };
 
   return (
