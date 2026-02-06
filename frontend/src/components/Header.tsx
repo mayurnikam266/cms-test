@@ -61,11 +61,9 @@ export default function Header() {
             <Link href="/products" className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-amber-300 hover:bg-gradient-to-r hover:from-amber-500/15 hover:to-orange-500/15 rounded-lg transition-all duration-200 border border-transparent hover:border-amber-400/40">
               Products
             </Link>
-            {hasAnnouncements && (
-              <Link href="/gallery" className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-amber-300 hover:bg-gradient-to-r hover:from-amber-500/15 hover:to-orange-500/15 rounded-lg transition-all duration-200 border border-transparent hover:border-amber-400/40">
-                Gallery
-              </Link>
-            )}
+            <Link href="/gallery" className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-amber-300 hover:bg-gradient-to-r hover:from-amber-500/15 hover:to-orange-500/15 rounded-lg transition-all duration-200 border border-transparent hover:border-amber-400/40">
+              Gallery
+            </Link>
             <Link href="/about" className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-amber-300 hover:bg-gradient-to-r hover:from-amber-500/15 hover:to-orange-500/15 rounded-lg transition-all duration-200 border border-transparent hover:border-amber-400/40">
               About
             </Link>
