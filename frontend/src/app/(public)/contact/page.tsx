@@ -23,43 +23,58 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setErrors([]);
     setLoading(true);
 
+    // Check rate limiting
+    const rateLimitCheck = canSubmitForm('contact');
+    if (!rateLimitCheck.canSubmit) {
+      setErrors([rateLimitCheck.message]);
+      setLoading(false);
+      return;
+    }
+
+    // Validate form
+    const validation = validateContactForm(formData);
+    if (!validation.isValid) {
+      setErrors(validation.errors);
+      setLoading(false);
+      return;
+    }
+
     try {
-      await submitContactForm(formData);
-      setSuccess(true);
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      // Sanitize inputs
+      const sanitizedData = {
+        name: sanitizeInput(formData.name),
+        email: sanitizeInput(formData.email),
+        phone: sanitizeInput(formData.phone),
+        message: sanitizeInput(formData.message),
+      };
+
+      // Generate WhatsApp URL
+      const whatsappURL = generateContactWhatsAppURL(sanitizedData);
+
+      // Record submission for rate limiting
+      recordFormSubmission('contact');
+
+      // Open WhatsApp
+      window.open(whatsappURL, '_blank');
       
+      // Show success alert
+      alert('Opening WhatsApp with your message...');
+      
+      // Reset form and redirect
+      setFormData({ name: '', email: '', phone: '', message: '' });
       setTimeout(() => {
         router.push('/');
-      }, 3000);
+      }, 2000);
     } catch (error: any) {
       console.error('Failed to submit contact form:', error);
-      setError('Failed to submit contact form. Please try again.');
+      setErrors(['Failed to open WhatsApp. Please try again.']);
     } finally {
       setLoading(false);
     }
   };
-
-  if (success) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-white flex items-center justify-center px-4">
-        <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 text-center">
-          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Message Sent!</h2>
-          <p className="text-gray-600 mb-6">
-            Thank you for contacting us. We'll get back to you as soon as possible.
-          </p>
-          <p className="text-sm text-gray-500">Redirecting to homepage...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-gradient-to-br from-primary-50 to-white py-8 px-4 sm:px-6 lg:px-8">
@@ -142,11 +157,19 @@ export default function ContactPage() {
           </p>
         </div>
 
-        {error && (
+        {errors.length > 0 && (
           <div className="bg-red-50 border-l-4 border-red-500 p-3 mb-6 rounded">
-            <p className="text-sm text-red-800">{error}</p>
+            {errors.map((error, index) => (
+              <p key={index} className="text-sm text-red-800">{error}</p>
+            ))}
           </div>
         )}
+
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-3 mb-6 rounded">
+          <p className="text-sm text-blue-800">
+            📱 Your message will open WhatsApp for direct communication with our team.
+          </p>
+        </div>
 
         {/* Contact Form - Compact */}
         <div className="bg-white rounded-xl shadow-lg p-6">
