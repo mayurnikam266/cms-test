@@ -46,6 +46,9 @@ export default function LanguageSelector() {
   }, []);
 
   return (
-    <div id="google_translate_element" className="translate-widget"></div>
+    <div className="flex items-center gap-1.5">
+      <span className="text-[10px] sm:text-xs font-medium text-gray-400">ENG</span>
+      <div id="google_translate_element" className="translate-widget"></div>
+    </div>
   );
 }

@@ -55,87 +55,143 @@ body {
   display: inline-block;
 }
 
-/* Hide Google Translate banner at top */
+/* Hide Google Translate banner completely - prevent layout shift */
 .goog-te-banner-frame.skiptranslate {
   display: none !important;
+  visibility: hidden !important;
+}
+
+.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  top: -9999px !important;
 }
 
 body {
   top: 0px !important;
+  position: static !important;
 }
 
-/* Style the translate dropdown */
+html {
+  position: static !important;
+}
+
+/* Force body to stay in place */
+body.translated {
+  top: 0 !important;
+}
+
+/* Style the translate dropdown - only show arrow */
 .goog-te-gadget {
   font-family: inherit !important;
   color: transparent !important;
+  line-height: 1 !important;
 }
 
 .goog-te-gadget img {
   display: none !important;
 }
 
+/* Hide the text, only show dropdown arrow */
 .goog-te-gadget-simple {
-  background-color: #1f2937 !important;
-  border: 1px solid #4b5563 !important;
-  border-radius: 0.5rem !important;
-  padding: 0.375rem 0.75rem !important;
-  font-size: 0.875rem !important;
-  transition: all 0.2s !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  font-size: 0 !important;
   cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
 }
 
 .goog-te-gadget-simple:hover {
-  border-color: #fbbf24 !important;
+  opacity: 0.8 !important;
 }
 
+/* Hide language name, keep only arrow */
 .goog-te-gadget-simple .goog-te-menu-value {
-  color: #d1d5db !important;
-  font-size: 0.875rem !important;
-  font-family: inherit !important;
+  color: #9ca3af !important;
+  font-size: 0 !important;
 }
 
 .goog-te-gadget-simple .goog-te-menu-value span {
-  color: #d1d5db !important;
-  border-left: 1px solid #6b7280 !important;
-  padding-left: 0.5rem !important;
-  margin-left: 0.5rem !important;
+  font-size: 0 !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: #9ca3af !important;
 }
 
-.goog-te-gadget-simple .goog-te-menu-value span:first-child {
-  border-left: none !important;
-  padding-left: 0 !important;
-  margin-left: 0 !important;
+/* Show only the dropdown arrow */
+.goog-te-gadget-simple .goog-te-menu-value span:last-child {
+  display: inline-block !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  color: #9ca3af !important;
+  transition: color 0.2s !important;
 }
 
-.goog-te-gadget-simple .goog-te-menu-value:hover {
+.goog-te-gadget-simple:hover .goog-te-menu-value span:last-child {
   color: #fbbf24 !important;
 }
 
 /* Mobile optimization */
 @media (max-width: 640px) {
-  .goog-te-gadget-simple {
-    padding: 0.25rem 0.5rem !important;
-    font-size: 0.75rem !important;
-  }
-  
-  .goog-te-gadget-simple .goog-te-menu-value {
-    font-size: 0.75rem !important;
-  }
-  
-  .goog-te-gadget-simple .goog-te-menu-value span {
-    padding-left: 0.375rem !important;
-    margin-left: 0.375rem !important;
+  .goog-te-gadget-simple .goog-te-menu-value span:last-child {
+    font-size: 14px !important;
   }
 }
 
 /* Style the dropdown menu */
 .goog-te-menu-frame {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
   border-radius: 0.5rem !important;
   border: 1px solid #4b5563 !important;
+  background: #1f2937 !important;
+  max-height: 400px !important;
+  overflow-y: auto !important;
+}
+
+.goog-te-menu2 {
+  background: #1f2937 !important;
+  border: none !important;
+}
+
+.goog-te-menu2-item div,
+.goog-te-menu2-item span {
+  color: #d1d5db !important;
+}
+
+.goog-te-menu2-item:hover {
+  background: #374151 !important;
+}
+
+.goog-te-menu2-item-selected {
+  background: #4b5563 !important;
 }
 
 /* Hide "Powered by" branding */
 .goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-gadget-icon {
+  display: none !important;
+}
+
+/* Prevent iframe issues */
+iframe.goog-te-banner-frame,
+iframe.skiptranslate {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  top: -9999px !important;
+  height: 0 !important;
+}
+
+/* Fix layout shifts */
+#goog-gt-tt,
+.goog-te-spinner-pos {
   display: none !important;
 }
