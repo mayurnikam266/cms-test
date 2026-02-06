@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { Product } from '@/types';
-import { productService } from '@/lib/products';
-import { quoteService } from '@/lib/contacts';
+import { Product, getProductBySlug } from '@/lib/sanity.queries';
+import { redirectToWhatsApp } from '@/lib/whatsapp';
 
 export default function QuotePage() {
   const router = useRouter();
   const params = useParams();
-  const productId = params.id as string;
+  const productSlug = params.id as string;
   
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(false);
@@ -26,11 +25,11 @@ export default function QuotePage() {
 
   useEffect(() => {
     loadProduct();
-  }, [productId]);
+  }, [productSlug]);
 
   const loadProduct = async () => {
     try {
-      const data = await productService.getById(productId);
+      const data = await getProductBySlug(productSlug);
       setProduct(data);
     } catch (error) {
       console.error('Failed to load product:', error);
@@ -49,13 +48,34 @@ export default function QuotePage() {
       return;
     }
 
+    // Validate required fields
+    if (!formData.name || !formData.phone) {
+      setError('Name and phone are required');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await quoteService.create({
-        ...formData,
-        productId,
-        productName: product.name,
-        productPrice: parseFloat(String(product.price)),
-      });
+      // Create WhatsApp message
+      const message = `
+*Quote Request*
+
+*Product:* ${product.name}
+*Price:* ₹${product.price}
+
+*Customer Details:*
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+${formData.address ? `Address: ${formData.address}` : ''}
+${formData.expectedDeliveryDate ? `Expected Delivery: ${formData.expectedDeliveryDate}` : ''}
+
+${formData.message ? `*Message:*\n${formData.message}` : ''}
+      `.trim();
+
+      // Redirect to WhatsApp
+      redirectToWhatsApp(message);
+      
       setSuccess(true);
       
       setTimeout(() => {
@@ -63,7 +83,7 @@ export default function QuotePage() {
       }, 3000);
     } catch (error: any) {
       console.error('Failed to submit quote request:', error);
-      setError(error.response?.data?.message || 'Failed to submit quote request. Please try again.');
+      setError('Failed to submit quote request. Please try again.');
     } finally {
       setLoading(false);
     }
