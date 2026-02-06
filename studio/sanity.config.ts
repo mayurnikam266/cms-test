@@ -18,6 +18,14 @@ export default defineConfig({
           .title('Content')
           .items([
             S.listItem()
+              .title('Site Settings')
+              .child(
+                S.document()
+                  .schemaType('siteSettings')
+                  .documentId('siteSettings')
+              ),
+            S.divider(),
+            S.listItem()
               .title('Products')
               .child(S.documentTypeList('product').title('Products')),
             S.listItem()
