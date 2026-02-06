@@ -9,6 +9,7 @@ export default defineConfig({
 
   projectId: process.env.SANITY_STUDIO_PROJECT_ID || 's9692oke',
   dataset: process.env.SANITY_STUDIO_DATASET || 'production',
+  apiVersion: process.env.SANITY_STUDIO_API_VERSION || '2024-02-01',
 
   plugins: [
     deskTool({
