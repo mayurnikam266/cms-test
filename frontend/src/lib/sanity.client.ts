@@ -1,5 +1,5 @@
 import { createClient } from '@sanity/client'
-import imageUrlBuilder from '@sanity/image-url'
+import { createImageUrlBuilder } from '@sanity/image-url'
 
 // Sanity Client Configuration
 export const sanityClient = createClient({
@@ -7,11 +7,12 @@ export const sanityClient = createClient({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2024-02-01',
   useCdn: true, // Use CDN for faster reads in production
-  token: process.env.SANITY_API_TOKEN, // Optional: Only needed for write operations
+  perspective: 'published', // Only fetch published documents
+  // Token removed - using public dataset access
 })
 
 // Image URL Builder
-const builder = imageUrlBuilder(sanityClient)
+const builder = createImageUrlBuilder(sanityClient)
 
 export function urlFor(source: any) {
   return builder.image(source)

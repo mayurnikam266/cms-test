@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Product, Category } from '@/types';
 import { getAllProducts, getProductsByCategory, getAllCategories } from '@/lib/sanity.queries';
 import ProductCard from '@/components/ProductCard';
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -106,5 +106,13 @@ export default function ProductsPage() {
         </>
       )}
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="container mx-auto px-4 py-8">Loading...</div>}>
+      <ProductsContent />
+    </Suspense>
   );
 }
