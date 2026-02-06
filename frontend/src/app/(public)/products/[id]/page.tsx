@@ -5,10 +5,6 @@ import { useParams } from 'next/navigation';
 import { Product, getProductBySlug, getImageUrl } from '@/lib/sanity.queries';
 import Link from 'next/link';
 
-export const dynamicParams = true;
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 export default function ProductDetailPage() {
   const params = useParams();
   const [product, setProduct] = useState<Product | null>(null);
