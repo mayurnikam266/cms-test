@@ -63,10 +63,10 @@ export default function ProductsPage() {
           </button>
           {categories.map((category) => (
             <button
-              key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
+              key={category._id}
+              onClick={() => setSelectedCategory(category._id)}
               className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                selectedCategory === category.id
+                selectedCategory === category._id
                   ? 'bg-primary-600 text-white shadow-lg'
                   : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
               }`}
@@ -100,7 +100,7 @@ export default function ProductsPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product._id} product={product} />
             ))}
           </div>
         </>

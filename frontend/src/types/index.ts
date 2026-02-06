@@ -14,39 +14,39 @@ export interface AuthResponse {
 }
 
 export interface Category {
-  id: string;
+  _id: string;
   name: string;
+  slug: {
+    current: string;
+  };
   description?: string;
-  icon?: string;
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
+  displayOrder?: number;
 }
 
 export interface Product {
-  id: string;
+  _id: string;
   name: string;
-  description: string;
+  slug: {
+    current: string;
+  };
+  description?: string;
   price: number;
-  specifications?: string;
-  status: 'active' | 'inactive' | 'draft';
-  stock: number;
-  sku?: string;
+  category?: {
+    _id: string;
+    name: string;
+    slug: {
+      current: string;
+    };
+  };
+  featuredImage?: any;
+  gallery?: any[];
+  specifications?: {
+    label: string;
+    value: string;
+  }[];
+  inStock: boolean;
   featured?: boolean;
-  categoryId?: string;
-  category: Category;
-  images: ProductImage[];
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface ProductImage {
-  id: string;
-  key: string;
-  url: string;
-  altText?: string;
-  isFeatured: boolean;
-  createdAt: string;
+  displayOrder?: number;
 }
 
 export interface ApiResponse<T> {

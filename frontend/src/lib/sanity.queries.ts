@@ -162,6 +162,8 @@ export async function hasActiveAnnouncements(): Promise<boolean> {
 }
 
 // Contact Form Submission
+// DEPRECATED: Using WhatsApp integration instead
+/*
 export async function submitContactForm(data: {
   name: string
   email: string
@@ -215,6 +217,7 @@ export async function submitQuoteRequest(data: {
 
   return sanityClient.create(doc)
 }
+*/
 
 // Image URL Helper
 export function getImageUrl(source: any, width?: number): string {

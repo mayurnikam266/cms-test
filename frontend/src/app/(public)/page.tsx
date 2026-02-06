@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
 import { getFeaturedProducts, getAllCategories } from '@/lib/sanity.queries';
+import type { Category, Product } from '@/types';
 
 export default async function HomePage() {
   // Fetch categories and products from Sanity
@@ -106,10 +107,10 @@ export default async function HomePage() {
                   Shop by Category
                 </h2>
                 <div className="space-y-2">
-                  {categories.map((category: Category) => (
+                  {categories.map((category) => (
                     <Link 
-                      key={category.id}
-                      href={`/products?category=${category.id}`}
+                      key={category._id}
+                      href={`/products?category=${category.slug.current}`}
                       className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-primary-50 transition-colors group"
                     >
                       <div className="w-10 h-10 bg-gradient-to-br from-primary-100 to-primary-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
@@ -135,8 +136,8 @@ export default async function HomePage() {
               
               {products.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {products.map((product: Product) => (
-                    <ProductCard key={product.id} product={product} />
+                  {products.map((product) => (
+                    <ProductCard key={product._id} product={product} />
                   ))}
                 </div>
               ) : (

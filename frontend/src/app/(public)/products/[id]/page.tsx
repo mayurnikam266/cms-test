@@ -105,9 +105,9 @@ export default function ProductDetailPage() {
             ₹{parseFloat(String(product.price)).toFixed(2)}
           </div>
 
-          {product.stock > 0 ? (
+          {product.inStock ? (
             <div className="bg-solar-100 text-solar-800 px-4 py-2 rounded-lg inline-block mb-6">
-              ✓ In Stock ({product.stock} available)
+              ✓ In Stock
             </div>
           ) : (
             <div className="bg-red-100 text-red-800 px-4 py-2 rounded-lg inline-block mb-6">
@@ -120,24 +120,25 @@ export default function ProductDetailPage() {
             <p className="text-gray-700 leading-relaxed">{product.description}</p>
           </div>
 
-          {product.specifications && (
+          {product.specifications && product.specifications.length > 0 && (
             <div className="mb-8">
               <h2 className="text-xl font-semibold mb-3">Specifications</h2>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <pre className="whitespace-pre-wrap text-sm text-gray-700">
-                  {product.specifications}
-                </pre>
+                <dl className="grid grid-cols-1 gap-2">
+                  {product.specifications.map((spec, index) => (
+                    <div key={index} className="flex justify-between py-2 border-b border-gray-200 last:border-0">
+                      <dt className="font-medium text-gray-700">{spec.label}:</dt>
+                      <dd className="text-gray-600">{spec.value}</dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
             </div>
           )}
 
-          {product.sku && (
-            <div className="text-sm text-gray-500">SKU: {product.sku}</div>
-          )}
-
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
-              href={`/products/${product.id}/quote`}
+              href={`/products/${product.slug.current}/quote`}
               className="btn-primary inline-block text-center flex-1 px-8 py-4 text-lg"
             >
               Get a Quote

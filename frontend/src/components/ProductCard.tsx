@@ -55,9 +55,9 @@ export default function ProductCard({ product }: ProductCardProps) {
               <span className="text-2xl font-bold text-primary-600">
                 ₹{parseFloat(String(product.price)).toFixed(2)}
               </span>
-              {product.stock > 0 && (
+              {product.inStock && (
                 <p className="text-xs text-green-600 font-medium mt-1">
-                  ✓ In Stock ({product.stock})
+                  ✓ In Stock
                 </p>
               )}
             </div>

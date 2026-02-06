@@ -2,13 +2,18 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { submitContactForm } from '@/lib/sanity.queries';
+import {
+  generateContactWhatsAppURL,
+  validateContactForm,
+  sanitizeInput,
+  canSubmitForm,
+  recordFormSubmission,
+} from '@/lib/whatsapp';
 
 export default function ContactPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
