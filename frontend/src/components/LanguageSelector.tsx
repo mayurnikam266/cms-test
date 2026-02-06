@@ -11,15 +11,22 @@ declare global {
 
 export default function LanguageSelector() {
   const [currentLang, setCurrentLang] = useState('en');
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    // Check if already loaded
+    if (document.querySelector('script[src*="translate.google.com"]')) {
+      setIsLoaded(true);
+      return;
+    }
+
     // Load Google Translate script
     const script = document.createElement('script');
     script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
     script.async = true;
     document.body.appendChild(script);
 
-    // Initialize Google Translate (hidden)
+    // Initialize Google Translate
     window.googleTranslateElementInit = () => {
       if (window.google && window.google.translate) {
         new window.google.translate.TranslateElement(
@@ -29,15 +36,21 @@ export default function LanguageSelector() {
             layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
             autoDisplay: false,
           },
-          'google_translate_element_hidden'
+          'google_translate_element'
         );
+        
+        // Wait a bit for the element to be fully initialized
+        setTimeout(() => {
+          setIsLoaded(true);
+        }, 1000);
       }
     };
 
     return () => {
+      // Cleanup script on unmount
       const existingScript = document.querySelector('script[src*="translate.google.com"]');
       if (existingScript) {
-        document.body.removeChild(existingScript);
+        existingScript.remove();
       }
     };
   }, []);
@@ -45,25 +58,43 @@ export default function LanguageSelector() {
   const changeLanguage = (lang: string) => {
     setCurrentLang(lang);
     
-    // Wait for Google Translate to load
-    const checkAndChange = () => {
+    // Try multiple times to find and trigger the select
+    let attempts = 0;
+    const maxAttempts = 20;
+    
+    const triggerChange = () => {
       const selectElement = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+      
       if (selectElement) {
         selectElement.value = lang;
+        
+        // Try multiple event types to ensure it triggers
         selectElement.dispatchEvent(new Event('change', { bubbles: true }));
+        selectElement.dispatchEvent(new Event('click', { bubbles: true }));
+        
+        // Force focus and blur to trigger change
+        selectElement.focus();
+        selectElement.blur();
+        
+        // Also try native change
+        const event = document.createEvent('HTMLEvents');
+        event.initEvent('change', true, false);
+        selectElement.dispatchEvent(event);
       } else {
-        // Retry after a short delay if not loaded yet
-        setTimeout(checkAndChange, 100);
+        attempts++;
+        if (attempts < maxAttempts) {
+          setTimeout(triggerChange, 200);
+        }
       }
     };
     
-    setTimeout(checkAndChange, 100);
+    triggerChange();
   };
 
   return (
     <>
-      {/* Hidden Google Translate Element */}
-      <div id="google_translate_element_hidden" className="hidden"></div>
+      {/* Google Translate Element - Hidden but functional */}
+      <div id="google_translate_element" style={{ position: 'absolute', left: '-9999px', visibility: 'hidden' }}></div>
       
       {/* Custom Language Buttons */}
       <div className="flex items-center gap-1 text-[10px] sm:text-xs font-medium">
