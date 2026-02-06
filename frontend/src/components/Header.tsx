@@ -2,23 +2,26 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { announcementService } from '@/lib/announcements';
+import { getSiteSettings, getImageUrl, type SiteSettings } from '@/lib/sanity.queries';
 
 export default function Header() {
-  const [hasAnnouncements, setHasAnnouncements] = useState(false);
+  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
 
   useEffect(() => {
-    checkAnnouncements();
+    loadSiteSettings();
   }, []);
 
-  const checkAnnouncements = async () => {
+  const loadSiteSettings = async () => {
     try {
-      const hasAnnouncements = await announcementService.hasAnnouncements();
-      setHasAnnouncements(hasAnnouncements);
+      const settings = await getSiteSettings();
+      setSiteSettings(settings);
     } catch (error) {
-      console.error('Failed to check announcements:', error);
+      console.error('Failed to load site settings:', error);
     }
   };
+
+  const siteName = siteSettings?.siteName || 'Test Agency';
+  const logoUrl = siteSettings?.logo ? getImageUrl(siteSettings.logo, 100) : null;
 
   return (
     <header className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-xl sticky top-0 z-50 border-b border-gray-700">
@@ -27,18 +30,26 @@ export default function Header() {
           {/* Logo Section */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative">
-              <div className="w-11 h-11 bg-gradient-to-br from-amber-400 via-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-orange-400/70 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
+              {logoUrl ? (
+                <div className="w-11 h-11 rounded-xl overflow-hidden shadow-lg group-hover:shadow-orange-400/70 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  <img src={logoUrl} alt={siteName} className="w-full h-full object-cover" />
+                </div>
+              ) : (
+                <div className="w-11 h-11 bg-gradient-to-br from-amber-400 via-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-orange-400/70 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+              )}
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-300 rounded-full animate-pulse shadow-lg shadow-yellow-300/60"></div>
             </div>
             <div>
               <div className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent group-hover:from-amber-300 group-hover:to-orange-300 transition-all duration-300">
-                Test Agency
+                {siteName}
               </div>
-              <div className="text-[10px] text-gray-400 font-medium tracking-wide group-hover:text-amber-300 transition-colors duration-300">SOLAR & ELECTRONICS</div>
+              <div className="text-[10px] text-gray-400 font-medium tracking-wide group-hover:text-amber-300 transition-colors duration-300">
+                {siteSettings?.tagline || 'SOLAR & ELECTRONICS'}
+              </div>
             </div>
           </Link>
           

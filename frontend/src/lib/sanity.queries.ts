@@ -33,6 +33,15 @@ export interface Announcement {
   isActive: boolean
 }
 
+export interface SiteSettings {
+  _id: string
+  siteName: string
+  logo?: any
+  tagline?: string
+  contactEmail?: string
+  contactPhone?: string
+}
+
 export interface Contact {
   _id: string
   name: string
@@ -159,6 +168,19 @@ export async function getActiveAnnouncements(): Promise<Announcement[]> {
 export async function hasActiveAnnouncements(): Promise<boolean> {
   const query = `count(*[_type == "announcement" && isActive == true]) > 0`
   return sanityFetch<boolean>(query)
+}
+
+// Site Settings API
+export async function getSiteSettings(): Promise<SiteSettings | null> {
+  const query = `*[_type == "siteSettings"][0] {
+    _id,
+    siteName,
+    logo,
+    tagline,
+    contactEmail,
+    contactPhone
+  }`
+  return sanityFetch<SiteSettings | null>(query)
 }
 
 // Contact Form Submission
