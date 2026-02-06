@@ -34,18 +34,20 @@ export interface Announcement {
 }
 
 export interface SiteSettings {
-  _id: string
-  siteName: string
-  logo?: any
-  tagline?: string
-  contactEmail?: string
-  contactPhone?: string  mobileNumber?: string;
+  _id: string;
+  siteName: string;
+  logo?: any;
+  tagline?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  mobileNumber?: string;
   whatsappNumber?: string;
   address?: string;
   city?: string;
   state?: string;
   pincode?: string;
-  country?: string;}
+  country?: string;
+}
 
 export interface Contact {
   _id: string
