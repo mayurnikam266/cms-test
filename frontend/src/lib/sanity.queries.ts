@@ -39,8 +39,13 @@ export interface SiteSettings {
   logo?: any
   tagline?: string
   contactEmail?: string
-  contactPhone?: string
-}
+  contactPhone?: string  mobileNumber?: string;
+  whatsappNumber?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  pincode?: string;
+  country?: string;}
 
 export interface Contact {
   _id: string
@@ -178,7 +183,14 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
     logo,
     tagline,
     contactEmail,
-    contactPhone
+    contactPhone,
+    mobileNumber,
+    whatsappNumber,
+    address,
+    city,
+    state,
+    pincode,
+    country
   }`
   return sanityFetch<SiteSettings | null>(query)
 }

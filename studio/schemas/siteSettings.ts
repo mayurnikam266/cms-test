@@ -37,6 +37,47 @@ export default defineType({
       name: 'contactPhone',
       title: 'Contact Phone',
       type: 'string',
+      description: 'Main contact phone number',
+    }),
+    defineField({
+      name: 'mobileNumber',
+      title: 'Mobile Number',
+      type: 'string',
+      description: 'Mobile number for WhatsApp and direct calls',
+    }),
+    defineField({
+      name: 'whatsappNumber',
+      title: 'WhatsApp Number',
+      type: 'string',
+      description: 'WhatsApp number (with country code, e.g., 919075870747)',
+    }),
+    defineField({
+      name: 'address',
+      title: 'Company Address',
+      type: 'text',
+      description: 'Full company address',
+      rows: 3,
+    }),
+    defineField({
+      name: 'city',
+      title: 'City',
+      type: 'string',
+    }),
+    defineField({
+      name: 'state',
+      title: 'State',
+      type: 'string',
+    }),
+    defineField({
+      name: 'pincode',
+      title: 'Pincode/Zipcode',
+      type: 'string',
+    }),
+    defineField({
+      name: 'country',
+      title: 'Country',
+      type: 'string',
+      initialValue: 'India',
     }),
   ],
   preview: {

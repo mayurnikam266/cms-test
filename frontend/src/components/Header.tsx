@@ -29,26 +29,26 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-3.5">
           {/* Logo Section */}
-          <Link href="/" className="flex items-center space-x-4 group">
+          <Link href="/" className="flex items-center space-x-2 sm:space-x-4 group">
             <div className="relative">
               {logoUrl ? (
-                <div className="w-16 h-16 rounded-xl overflow-hidden shadow-lg group-hover:shadow-orange-500/90 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 ring-2 ring-transparent group-hover:ring-orange-400">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl overflow-hidden shadow-lg group-hover:shadow-orange-500/90 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 ring-2 ring-transparent group-hover:ring-orange-400">
                   <img src={logoUrl} alt={siteName} className="w-full h-full object-cover" />
                 </div>
               ) : (
-                <div className="w-16 h-16 bg-gradient-to-br from-amber-400 via-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-orange-500/90 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 ring-2 ring-transparent group-hover:ring-orange-400">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-amber-400 via-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-orange-500/90 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 ring-2 ring-transparent group-hover:ring-orange-400">
+                  <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
               )}
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-300 rounded-full animate-pulse shadow-lg shadow-yellow-300/60"></div>
+              <div className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 bg-yellow-300 rounded-full animate-pulse shadow-lg shadow-yellow-300/60"></div>
             </div>
-            <div>
-              <div className="text-2xl font-bold text-orange-500 group-hover:text-orange-400 transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(251,146,60,0.8)]">
+            <div className="max-w-[120px] sm:max-w-none">
+              <div className="text-sm sm:text-xl md:text-2xl font-bold text-orange-500 group-hover:text-orange-400 transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(251,146,60,0.8)] truncate">
                 {siteName}
               </div>
-              <div className="text-xs text-gray-400 font-medium tracking-wide group-hover:text-amber-300 transition-colors duration-300">
+              <div className="text-[9px] sm:text-xs text-gray-400 font-medium tracking-wide group-hover:text-amber-300 transition-colors duration-300 hidden sm:block">
                 {siteSettings?.tagline || 'SOLAR & ELECTRONICS'}
               </div>
             </div>
@@ -74,23 +74,21 @@ export default function Header() {
           </nav>
 
           {/* Right Section: Language Selector & Admin Button */}
-          <div className="flex items-center gap-3">
-            {/* Language Selector */}
-            <div className="hidden lg:block">
-              <LanguageSelector />
-            </div>
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Language Selector - Show on all devices */}
+            <LanguageSelector />
             
             {/* Admin CMS Button - Opens Sanity Studio */}
             <a
               href={process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || 'https://your-project.sanity.studio'}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 rounded-lg shadow-lg hover:shadow-orange-400/70 transition-all duration-300 hover:scale-105 border border-amber-400/40"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 rounded-lg shadow-lg hover:shadow-orange-400/70 transition-all duration-300 hover:scale-105 border border-amber-400/40"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
-              Admin
+              <span className="hidden sm:inline">Admin</span>
             </a>
           </div>
         </div>
