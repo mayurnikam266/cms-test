@@ -64,9 +64,9 @@ function ProductsContent() {
           {categories.map((category) => (
             <button
               key={category._id}
-              onClick={() => setSelectedCategory(category._id)}
+              onClick={() => setSelectedCategory(category.slug.current)}
               className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                selectedCategory === category._id
+                selectedCategory === category.slug.current
                   ? 'bg-primary-600 text-white shadow-lg'
                   : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
               }`}
