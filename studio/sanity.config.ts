@@ -26,13 +26,6 @@ export default defineConfig({
             S.listItem()
               .title('Announcements')
               .child(S.documentTypeList('announcement').title('Announcements')),
-            S.divider(),
-            ...S.documentTypeListItems().filter(
-              (listItem) =>
-                !['product', 'category', 'announcement', 'contact', 'quote'].includes(
-                  listItem.getId() || ''
-                )
-            ),
           ]),
     }),
     visionTool(),
