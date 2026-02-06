@@ -1,0 +1,156 @@
+   1  ks
+    2  ls
+    3  mariadb
+    4  systemctl status mariadb
+    5  git 
+    6  clear
+    7  lsblk
+    8  git clone https://github.com/mayurnikam266/Test-Agency-Freelance.git
+    9  https://github.com/mayurnikam266/Test-Agency-Freelance.git
+   10  git clone https://github.com/mayurnikam266/Test-Agency-Freelance.git
+   11  https://github.com/mayurnikam266/Test-Agency-Freelance.git
+   12  git clone https://github.com/mayurnikam266/Test-Agency-Freelance.git
+   13  git clone https://mayurnikam266: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@github.com/mayurnikam266/Test-Agency-Freelance.git
+   14  git clone https://mayurnikam266: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@github.com/mayurnikam266/Test-Agency-Freelance.git
+   15  sudo apt update
+   16  sudo apt upgrade -y
+   17  node -v
+   18  clear
+   19  npm -v
+   20  sudo apt install -y mysql-server
+   21  sudo systemctl start mysql
+   22  sudo systemctl enable mysql
+   23  sudo mysql
+   24  -- Inside MariaDB prompt:
+   25  ALTER USER 'root'@'localhost' IDENTIFIED BY 'YourRootPassword123!';
+   26  FLUSH PRIVILEGES;
+   27  EXIT;
+   28  sudo systemctl status mariadb
+   29  sudo systemctl start mariadb
+   30  sudo systemctl enable mariadb
+   31  sudo mysql
+   32  npm install mariadb
+   33  LS
+   34  clear
+   35  ls
+   36  cp -r Test-Agency-Freelance/ /var/www
+   37  sudo cp -r Test-Agency-Freelance/ /var/www
+   38  sudo chown -R admin:admin /var/www/test-agency
+   39  sudo chown -R admin:admin /var/www/Test-Agency-Freelance/
+   40  cd /var/www/Test-Agency-Freelance/
+   41  cd backend/
+   42  nano .env
+   43  cat >> .env
+   44  cat >>.env
+   45  nano .env
+   46  echo "JWT_SECRET:"
+   47  openssl rand -base64 64
+   48  echo "JWT_REFRESH_SECRET:"
+   49  openssl rand -base64 64
+   50  ls 
+   51  cd /var/www/Test-Agency-Freelance/
+   52  LS
+   53  cd backend/
+   54  npm install
+   55  cd ..
+   56  cd frontend/
+   57  npm install
+   58  cd /var/www/Test-Agency-Freelance/
+   59  cd frontend/
+   60  npm install
+   61  clear
+   62  cd /var/www/Test-Agency-Freelance/
+   63  ls
+   64  cd backend/
+   65  ls
+   66  cat .env
+   67  mysql -u nodeuser test_db < src/database/schema-mysql.sql
+   68  mysql -u -p nodeuser test_db < src/database/schema-mysql.sql
+   69  mysql -u nodeuser -p test_db < src/database/schema-mysql.sql
+   70  clear
+   71  cat .env
+   72  mysql -u nodeuser -p test_db < src/database/schema-mysql.sql
+   73  sudo mysql
+   74  mysql -u nodeuser -p test_db < src/database/schema-mysql.sql
+   75  clear
+   76  cat .env
+   77  mysql -u nodeuser -p test_db < src/database/schema-mysql.sql
+   78  sudo mysql
+   79  clear
+   80  sudo mysql
+   81  clear
+   82  cat .env
+   83  mysql -u nodeuser -p test_db < /var/www/Test-Agency-Freelance/backend/src/database/schema-mysql.sql
+   84  ls
+   85  cd src/
+   86  ls
+   87  cd database/
+   88  ls
+   89  vi schema-mysql.sql 
+   90  nano schema-mysql.sql 
+   91  sudo mysql
+   92  cd ..
+   93  ls
+   94  cd ..
+   95  clear
+   96  node .env
+   97  clear
+   98  cat .env
+   99  mysql -u nodeuser -p test_db < /var/www/Test-Agency-Freelance/backend/src/database/schema-mysql.sql
+  100  sudo mysql
+  101  clear
+  102  ls
+  103  cd src/
+  104  ls
+  105  cd upload/
+  106  ls
+  107  mkdir -p uploads/products
+  108  chmod 755 uploads
+  109  rm -rf upload/
+  110  ls
+  111  rm -rf uploads
+  112  cd ..
+  113  mkdir -p uploads/products
+  114  chmod 755 uploads
+  115  cd ..
+  116  ls
+  117  cd frontend/
+  118  cd ..
+  119  cd backend/
+  120  npm run build
+  121  cd ../frontend/
+  122  ls
+  123  nano .env.local
+  124  vi .env.local
+  125  # Build for production
+  126  npm run build
+  127  cd ..
+  128  clear
+  129  history
+
+
+admin@ip-172-26-4-113:/var/www/Test-Agency-Freelance$ 
+
+
+admin@ip-172-26-4-113:/var/www/Test-Agency-Freelance/backend$ cat .env
+NODE_ENV=production
+PORT=3000
+
+# Database Configuration
+DATABASE_HOST=localhost
+DATABASE_PORT=3306
+DATABASE_USER=nodeuser
+DATABASE_PASSWORD=NodePassword123!
+DATABASE_NAME=test_db
+
+# JWT Secrets - Generate with: openssl rand -base64 64
+JWT_SECRET=generate-a-long-random-string-here-use-openssl-command
+JWT_REFRESH_SECRET=generate-another-long-random-string-here
+
+# CORS
+FRONTEND_URL=http://13.201.127.139:3001
+
+# File Upload
+UPLOAD_DIR=/var/www/Test-Agency-Freelance/backend/uploads
+MAX_FILE_SIZE=10485760
+admin@ip-172-26-4-113:/var/www/Test-Agency-Freelance/backend$ 

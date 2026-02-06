@@ -32,10 +32,11 @@ export class UploadController {
         throw new BadRequestException('Invalid file type or size. Allowed: JPG, PNG, WEBP (max 10MB)');
       }
 
-      const url = await this.uploadService.uploadImage(file, productName);
+      const result = await this.uploadService.uploadImage(file, productName);
       return { 
         success: true,
-        url,
+        url: result.url,
+        key: result.key,
         message: 'Image uploaded and optimized successfully'
       };
     } catch (error) {

@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import { UploadModule } from './upload/upload.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { QuotesModule } from './quotes/quotes.module';
+import { AnnouncementsModule } from './announcements/announcements.module';
 import { DatabaseInitService } from './database/database-init.service';
 
 @Module({
@@ -36,6 +37,7 @@ import { DatabaseInitService } from './database/database-init.service';
     UploadModule,
     ContactsModule,
     QuotesModule,
+    AnnouncementsModule,
   ],
   providers: [DatabaseInitService],
 })

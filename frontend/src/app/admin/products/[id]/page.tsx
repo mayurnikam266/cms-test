@@ -89,7 +89,7 @@ export default function EditProductPage() {
     // Upload to server
     try {
       setUploading(true);
-      const url = await uploadService.uploadImage(file, formData.name);
+      const url = await uploadService.uploadImageUrl(file, formData.name);
       setUploadedImageUrl(url);
     } catch (error) {
       console.error('Upload failed:', error);

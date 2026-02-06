@@ -88,6 +88,21 @@ CREATE TABLE quotes (
     FOREIGN KEY (productId) REFERENCES products(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Announcements table
+CREATE TABLE announcements (
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    imageUrl VARCHAR(500) NOT NULL,
+    imageKey VARCHAR(500) NOT NULL,
+    status VARCHAR(20) DEFAULT 'active',
+    displayOrder INTEGER DEFAULT 0,
+    isActive BOOLEAN DEFAULT true,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CHECK (status IN ('active', 'inactive'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Indexes for performance
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_users_role ON users(role);
@@ -102,6 +117,10 @@ CREATE INDEX idx_contacts_created ON contacts(createdAt DESC);
 CREATE INDEX idx_quotes_status ON quotes(status);
 CREATE INDEX idx_quotes_product ON quotes(productId);
 CREATE INDEX idx_quotes_created ON quotes(createdAt DESC);
+CREATE INDEX idx_announcements_status ON announcements(status);
+CREATE INDEX idx_announcements_active ON announcements(isActive);
+CREATE INDEX idx_announcements_order ON announcements(displayOrder);
+CREATE INDEX idx_announcements_created ON announcements(createdAt DESC);
 
 -- Insert initial admin user (password: SecureAdminPassword123!)
 -- This is a bcrypt hash with 10 rounds
