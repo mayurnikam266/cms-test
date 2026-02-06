@@ -26,8 +26,8 @@ export default function Header() {
   const logoUrl = siteSettings?.logo ? getImageUrl(siteSettings.logo, 100) : null;
 
   return (
-    <header className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-xl sticky top-0 z-50 border-b border-gray-700">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-xl sticky top-0 z-50 border-b border-gray-700 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden">
         <div className="flex justify-between items-center py-3">
           {/* Logo Section */}
           <Link href="/" className="flex items-center space-x-3 group">

@@ -180,6 +180,25 @@ body.translated {
   display: none !important;
 }
 
+/* Hide all "Powered by" text variations */
+.goog-te-gadget .goog-te-gadget-simple a,
+.goog-te-gadget-simple a {
+  display: none !important;
+}
+
+span#goog-gt-tt,
+.goog-te-gadget span,
+.goog-te-gadget a {
+  text-decoration: none !important;
+}
+
+/* Hide the powered by link */
+.goog-te-gadget-simple .goog-te-menu-value span:nth-child(3),
+.goog-te-gadget-simple .goog-te-menu-value span:nth-child(5),
+.goog-te-gadget-simple > div > a {
+  display: none !important;
+}
+
 /* Prevent iframe issues */
 iframe.goog-te-banner-frame,
 iframe.skiptranslate {
@@ -194,4 +213,23 @@ iframe.skiptranslate {
 #goog-gt-tt,
 .goog-te-spinner-pos {
   display: none !important;
+}
+
+/* Prevent horizontal scroll on mobile */
+* {
+  max-width: 100%;
+}
+
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  position: relative !important;
+}
+
+/* Ensure no elements overflow */
+.translate-widget,
+.goog-te-gadget,
+.goog-te-gadget-simple {
+  max-width: 100% !important;
+  overflow: hidden !important;
 }
