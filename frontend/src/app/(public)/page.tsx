@@ -4,6 +4,9 @@ import ProductCard from '@/components/ProductCard';
 import { getFeaturedProducts, getAllCategories, getActiveAnnouncements, getImageUrl } from '@/lib/sanity.queries';
 import type { Category, Product, Announcement } from '@/types';
 
+// Revalidate every 60 seconds to ensure deleted announcements are removed quickly
+export const revalidate = 60;
+
 export default async function HomePage() {
   // Fetch categories, products, and announcements from Sanity
   const categories = await getAllCategories();

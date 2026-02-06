@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getSiteSettings, getImageUrl, type SiteSettings } from '@/lib/sanity.queries';
+import LanguageSelector from './LanguageSelector';
 
 export default function Header() {
   const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
@@ -72,18 +73,26 @@ export default function Header() {
             </Link>
           </nav>
 
-          {/* Admin CMS Button - Opens Sanity Studio */}
-          <a
-            href={process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || 'https://your-project.sanity.studio'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 rounded-lg shadow-lg hover:shadow-orange-400/70 transition-all duration-300 hover:scale-105 border border-amber-400/40"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
-            Admin
-          </a>
+          {/* Right Section: Language Selector & Admin Button */}
+          <div className="flex items-center gap-3">
+            {/* Language Selector */}
+            <div className="hidden lg:block">
+              <LanguageSelector />
+            </div>
+            
+            {/* Admin CMS Button - Opens Sanity Studio */}
+            <a
+              href={process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || 'https://your-project.sanity.studio'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 rounded-lg shadow-lg hover:shadow-orange-400/70 transition-all duration-300 hover:scale-105 border border-amber-400/40"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              Admin
+            </a>
+          </div>
         </div>
       </div>
     </header>
