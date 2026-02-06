@@ -1,6 +1,11 @@
 // WhatsApp integration utilities
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919075870747';
 
+export function redirectToWhatsApp(message: string): void {
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+}
+
 export function generateContactWhatsAppURL(data: {
   name: string;
   email: string;
