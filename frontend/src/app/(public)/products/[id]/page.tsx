@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { Product } from '@/types';
-import { productService } from '@/lib/products';
-import { getImageUrl } from '@/lib/api';
+import { Product, getProductBySlug, getImageUrl } from '@/lib/sanity.queries';
 import Link from 'next/link';
 
 export default function ProductDetailPage() {
@@ -19,7 +17,7 @@ export default function ProductDetailPage() {
 
   const loadProduct = async () => {
     try {
-      const data = await productService.getById(params.id as string);
+      const data = await getProductBySlug(params.id as string);
       setProduct(data);
     } catch (error) {
       console.error('Failed to load product:', error);
@@ -47,6 +45,11 @@ export default function ProductDetailPage() {
     );
   }
 
+  const images = product.gallery || [];
+  if (product.featuredImage && !images.includes(product.featuredImage)) {
+    images.unshift(product.featuredImage);
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <Link href="/products" className="text-primary-600 hover:underline mb-6 inline-block">
@@ -57,10 +60,10 @@ export default function ProductDetailPage() {
         {/* Images */}
         <div>
           <div className="bg-gray-100 rounded-xl overflow-hidden mb-4 aspect-square">
-            {product.images.length > 0 ? (
+            {images.length > 0 ? (
               <img
-                src={getImageUrl(product.images[selectedImage]?.url)}
-                alt={product.images[selectedImage]?.altText || product.name}
+                src={getImageUrl(images[selectedImage], 800)}
+                alt={product.name}
                 className="w-full h-full object-cover"
               />
             ) : (
@@ -71,19 +74,19 @@ export default function ProductDetailPage() {
               </div>
             )}
           </div>
-          {product.images.length > 1 && (
+          {images.length > 1 && (
             <div className="grid grid-cols-4 gap-2">
-              {product.images.map((image, index) => (
+              {images.map((image, index) => (
                 <button
-                  key={image.id}
+                  key={index}
                   onClick={() => setSelectedImage(index)}
                   className={`aspect-square rounded-lg overflow-hidden border-2 ${
                     selectedImage === index ? 'border-primary-600' : 'border-transparent'
                   }`}
                 >
                   <img
-                    src={getImageUrl(image.url)}
-                    alt={image.altText || `${product.name} ${index + 1}`}
+                    src={getImageUrl(image, 200)}
+                    alt={`${product.name} ${index + 1}`}
                     className="w-full h-full object-cover"
                   />
                 </button>

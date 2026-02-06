@@ -3,8 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Product, Category } from '@/types';
-import { productService } from '@/lib/products';
-import { categoryService } from '@/lib/categories';
+import { getAllProducts, getProductsByCategory, getAllCategories } from '@/lib/sanity.queries';
 import ProductCard from '@/components/ProductCard';
 
 export default function ProductsPage() {
@@ -30,8 +29,8 @@ export default function ProductsPage() {
     try {
       setLoading(true);
       const [productsData, categoriesData] = await Promise.all([
-        productService.getAll(selectedCategory),
-        categoryService.getAll(),
+        selectedCategory ? getProductsByCategory(selectedCategory) : getAllProducts(),
+        getAllCategories(),
       ]);
       setProducts(productsData);
       setCategories(categoriesData);

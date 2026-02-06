@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { contactService } from '@/lib/contacts';
+import { submitContactForm } from '@/lib/sanity.queries';
 
 export default function ContactPage() {
   const router = useRouter();
@@ -22,7 +22,7 @@ export default function ContactPage() {
     setLoading(true);
 
     try {
-      const response = await contactService.create(formData);
+      await submitContactForm(formData);
       setSuccess(true);
       setFormData({ name: '', email: '', phone: '', message: '' });
       
@@ -31,7 +31,7 @@ export default function ContactPage() {
       }, 3000);
     } catch (error: any) {
       console.error('Failed to submit contact form:', error);
-      setError(error.response?.data?.message || 'Failed to submit contact form. Please try again.');
+      setError('Failed to submit contact form. Please try again.');
     } finally {
       setLoading(false);
     }

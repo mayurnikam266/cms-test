@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { announcementService, Announcement } from '@/lib/announcements';
-import { getImageUrl } from '@/lib/api';
+import { Announcement, getActiveAnnouncements, getImageUrl } from '@/lib/sanity.queries';
 
 export default function GalleryPage() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
@@ -15,7 +14,7 @@ export default function GalleryPage() {
 
   const loadAnnouncements = async () => {
     try {
-      const data = await announcementService.getAll(true); // Only active announcements
+      const data = await getActiveAnnouncements();
       setAnnouncements(data);
     } catch (error) {
       console.error('Failed to load announcements:', error);
@@ -58,13 +57,13 @@ export default function GalleryPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {announcements.map((announcement) => (
             <div
-              key={announcement.id}
+              key={announcement._id}
               className="group relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
               onClick={() => setSelectedImage(announcement)}
             >
               <div className="aspect-w-16 aspect-h-9 relative h-64 overflow-hidden">
                 <img
-                  src={getImageUrl(announcement.imageUrl)}
+                  src={getImageUrl(announcement.image, 800)}
                   alt={announcement.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -79,13 +78,6 @@ export default function GalleryPage() {
                     {announcement.description}
                   </p>
                 )}
-                <div className="mt-4 text-xs text-gray-500">
-                  {new Date(announcement.createdAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </div>
               </div>
             </div>
           ))}
@@ -123,7 +115,7 @@ export default function GalleryPage() {
 
               {/* Image */}
               <img
-                src={getImageUrl(selectedImage.imageUrl)}
+                src={getImageUrl(selectedImage.image, 1200)}
                 alt={selectedImage.title}
                 className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
               />
@@ -136,14 +128,6 @@ export default function GalleryPage() {
                 {selectedImage.description && (
                   <p className="text-gray-700 mb-4">{selectedImage.description}</p>
                 )}
-                <p className="text-sm text-gray-500">
-                  Posted on{' '}
-                  {new Date(selectedImage.createdAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </p>
               </div>
             </div>
           </div>

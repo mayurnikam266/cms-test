@@ -1,43 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
-import { Category, Product } from '@/types';
-
-async function getProducts() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?featured=true`, {
-      cache: 'no-store',
-    });
-    if (!res.ok) return { data: [] };
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error('Failed to fetch products:', error);
-    return { data: [] };
-  }
-}
-
-async function getCategories() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`, {
-      cache: 'no-store',
-    });
-    if (!res.ok) return { data: [] };
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error('Failed to fetch categories:', error);
-    return { data: [] };
-  }
-}
+import { getFeaturedProducts, getAllCategories } from '@/lib/sanity.queries';
 
 export default async function HomePage() {
-  // Fetch categories and products
-  const categoriesData = await getCategories();
-  const productsData = await getProducts();
-  
-  const categories = categoriesData.data || [];
-  const products = productsData.data || [];
+  // Fetch categories and products from Sanity
+  const categories = await getAllCategories();
+  const products = await getFeaturedProducts();
 
   return (
     <div>
