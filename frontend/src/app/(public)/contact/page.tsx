@@ -184,7 +184,7 @@ export default function ContactPage() {
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="input text-sm"
                   required
-                  placeholder="John Doe"
+                  placeholder="Rajesh Kumar"
                 />
               </div>
 
@@ -196,7 +196,7 @@ export default function ContactPage() {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="input text-sm"
                   required
-                  placeholder="john@example.com"
+                  placeholder="rajesh.kumar@gmail.com"
                 />
               </div>
             </div>
@@ -220,7 +220,7 @@ export default function ContactPage() {
                 className="input text-sm"
                 rows={4}
                 required
-                placeholder="Tell us what you need help with..."
+                placeholder="I am interested in solar panels for my home. Please provide details..."
               />
             </div>
 

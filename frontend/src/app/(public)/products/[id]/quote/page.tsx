@@ -142,7 +142,7 @@ ${formData.message ? `*Message:*\n${formData.message}` : ''}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="input"
                 required
-                placeholder="John Doe"
+                placeholder="Priya Sharma"
               />
             </div>
 
@@ -154,7 +154,7 @@ ${formData.message ? `*Message:*\n${formData.message}` : ''}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="input"
                 required
-                placeholder="john@example.com"
+                placeholder="priya.sharma@gmail.com"
               />
             </div>
 
@@ -166,7 +166,7 @@ ${formData.message ? `*Message:*\n${formData.message}` : ''}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 className="input"
                 required
-                placeholder="+1 (555) 000-0000"
+                placeholder="+91 98765 43210"
               />
             </div>
 
@@ -178,7 +178,7 @@ ${formData.message ? `*Message:*\n${formData.message}` : ''}
                 className="input"
                 rows={3}
                 required
-                placeholder="Enter your complete delivery address"
+                placeholder="123, MG Road, Pune, Maharashtra - 411001"
               />
             </div>
 
@@ -201,7 +201,7 @@ ${formData.message ? `*Message:*\n${formData.message}` : ''}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 className="input"
                 rows={4}
-                placeholder="Any special requirements or questions?"
+                placeholder="Please provide installation details or any specific requirements..."
               />
             </div>
 
