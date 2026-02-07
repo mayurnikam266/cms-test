@@ -55,6 +55,21 @@ body {
   display: inline-block;
 }
 
+/* Hide the translate element container completely - no white box */
+#google_translate_element {
+  display: inline-block !important;
+}
+
+/* Hide any input/search boxes from Google Translate */
+.goog-te-combo,
+input.goog-te-combo {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
 /* AGGRESSIVE: Hide ALL Google Translate banners and branding */
 .goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
@@ -99,6 +114,7 @@ body.translated {
   line-height: 1 !important;
   font-size: 0 !important;
   color: transparent !important;
+  background: transparent !important;
 }
 
 /* Hide ALL anchor tags and links inside gadget */
@@ -116,7 +132,7 @@ body.translated {
 
 /* Style the button - match website theme with proper dark background */
 .goog-te-gadget-simple {
-  background-color: rgba(31, 41, 55, 0.8) !important;
+  background-color: transparent !important;
   border: 1px solid #4b5563 !important;
   border-radius: 0.5rem !important;
   padding: 0.5rem 0.75rem !important;
@@ -126,17 +142,15 @@ body.translated {
   align-items: center !important;
   gap: 0.375rem !important;
   transition: all 0.2s ease !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: none !important;
   min-width: auto !important;
   white-space: nowrap !important;
-  backdrop-filter: blur(8px) !important;
 }
 
 .goog-te-gadget-simple:hover {
   border-color: #fbbf24 !important;
-  background-color: rgba(55, 65, 81, 0.9) !important;
-  box-shadow: 0 0 12px rgba(251, 191, 36, 0.4) !important;
-  transform: translateY(-1px) !important;
+  background-color: rgba(55, 65, 81, 0.5) !important;
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.3) !important;
 }
 
 /* Style ONLY the language name - show it properly */
