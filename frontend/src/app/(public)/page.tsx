@@ -21,6 +21,12 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
             {/* Left Content */}
             <div>
+              <div className="inline-flex items-center gap-2 bg-amber-100 border border-amber-300 rounded-full px-4 py-1.5 mb-3">
+                <svg className="w-5 h-5 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                <span className="text-sm font-bold text-amber-800">5+ Years Experience</span>
+              </div>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
                 Power Your Future with <span className="text-primary-600">Solar Energy</span>
               </h1>
@@ -296,6 +302,16 @@ export default async function HomePage() {
           <Link href="/contact" className="bg-white text-primary-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition inline-block">
             Get Started Today
           </Link>
+        </div>
+      </section>
+
+      {/* Disclaimer */}
+      <section className="py-6 bg-gray-100 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-xs text-gray-500 italic">
+            <strong>Disclaimer:</strong> This is a sample website for demonstration purposes only and does not represent an actual company. 
+            All content, products, and services displayed are fictional and for educational/portfolio use only.
+          </p>
         </div>
       </section>
     </div>
