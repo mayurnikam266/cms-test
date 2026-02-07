@@ -49,6 +49,16 @@ export interface SiteSettings {
   country?: string;
 }
 
+export interface Gallery {
+  _id: string;
+  title: string;
+  image: any;
+  category: 'installation' | 'products' | 'projects' | 'events' | 'team' | 'other';
+  description?: string;
+  featured?: boolean;
+  order?: number;
+}
+
 export interface Contact {
   _id: string
   name: string
@@ -175,6 +185,38 @@ export async function getActiveAnnouncements(): Promise<Announcement[]> {
 export async function hasActiveAnnouncements(): Promise<boolean> {
   const query = `count(*[_type == "announcement" && isActive == true]) > 0`
   return sanityFetch<boolean>(query)
+}
+
+// Gallery API
+const GALLERY_FIELDS = `
+  _id,
+  title,
+  image,
+  category,
+  description,
+  featured,
+  order
+`
+
+export async function getGalleryImages(): Promise<Gallery[]> {
+  const query = `*[_type == "gallery"] | order(order asc, _createdAt desc) {
+    ${GALLERY_FIELDS}
+  }`
+  return sanityFetch<Gallery[]>(query)
+}
+
+export async function getFeaturedGalleryImages(): Promise<Gallery[]> {
+  const query = `*[_type == "gallery" && featured == true] | order(order asc, _createdAt desc) {
+    ${GALLERY_FIELDS}
+  }`
+  return sanityFetch<Gallery[]>(query)
+}
+
+export async function getGalleryImagesByCategory(category: string): Promise<Gallery[]> {
+  const query = `*[_type == "gallery" && category == $category] | order(order asc, _createdAt desc) {
+    ${GALLERY_FIELDS}
+  }`
+  return sanityFetch<Gallery[]>(query, { category })
 }
 
 // Site Settings API

@@ -118,7 +118,7 @@ export default async function HomePage() {
                       <img
                         src={getImageUrl(announcement.image, 600)}
                         alt={announcement.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                       />
                     </div>
                   )}

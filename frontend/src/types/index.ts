@@ -58,6 +58,16 @@ export interface Announcement {
   isActive: boolean;
 }
 
+export interface Gallery {
+  _id: string;
+  title: string;
+  image: any;
+  category: 'installation' | 'products' | 'projects' | 'events' | 'team' | 'other';
+  description?: string;
+  featured?: boolean;
+  order?: number;
+}
+
 export interface ApiResponse<T> {
   data: T;
   message?: string;
