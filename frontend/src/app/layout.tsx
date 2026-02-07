@@ -4,7 +4,7 @@ import { getSiteSettings } from '@/lib/sanity.queries';
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await getSiteSettings();
-  const siteName = siteSettings?.siteName || 'Test Agency';
+  const siteName = siteSettings?.siteName || 'Shree Ganesha Solar Agency';
   const tagline = siteSettings?.tagline || 'Solar Panels & Electronics';
   
   return {

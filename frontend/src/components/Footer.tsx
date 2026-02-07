@@ -20,7 +20,7 @@ export default function Footer() {
     }
   };
 
-  const siteName = siteSettings?.siteName || 'Test Agency';
+  const siteName = siteSettings?.siteName || 'Shree Ganesha Solar Agency';
   const tagline = siteSettings?.tagline || 'Solar & Electronics';
   const logoUrl = siteSettings?.logo ? getImageUrl(siteSettings.logo, 80) : null;
 

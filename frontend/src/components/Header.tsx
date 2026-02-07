@@ -22,7 +22,7 @@ export default function Header() {
     }
   };
 
-  const siteName = siteSettings?.siteName || 'Test Agency';
+  const siteName = siteSettings?.siteName || 'Shree Ganesha Solar Agency';
   const logoUrl = siteSettings?.logo ? getImageUrl(siteSettings.logo, 100) : null;
 
   return (
@@ -62,6 +62,9 @@ export default function Header() {
             </Link>
             <Link href="/products" className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-amber-300 hover:bg-gradient-to-r hover:from-amber-500/15 hover:to-orange-500/15 rounded-lg transition-all duration-200 border border-transparent hover:border-amber-400/40">
               Products
+            </Link>
+            <Link href="/subsidy" className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-amber-300 hover:bg-gradient-to-r hover:from-amber-500/15 hover:to-orange-500/15 rounded-lg transition-all duration-200 border border-transparent hover:border-amber-400/40">
+              Subsidy
             </Link>
             <Link href="/gallery" className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-amber-300 hover:bg-gradient-to-r hover:from-amber-500/15 hover:to-orange-500/15 rounded-lg transition-all duration-200 border border-transparent hover:border-amber-400/40">
               Gallery
@@ -128,6 +131,13 @@ export default function Header() {
                 className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-amber-300 hover:bg-gradient-to-r hover:from-amber-500/15 hover:to-orange-500/15 rounded-lg transition-all duration-200"
               >
                 Products
+              </Link>
+              <Link
+                href="/subsidy"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-amber-300 hover:bg-gradient-to-r hover:from-amber-500/15 hover:to-orange-500/15 rounded-lg transition-all duration-200"
+              >
+                Subsidy
               </Link>
               <Link
                 href="/gallery"
