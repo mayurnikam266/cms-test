@@ -1,11 +1,18 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { getSiteSettings } from '@/lib/sanity.queries';
 
-export const metadata: Metadata = {
-  title: 'Test Agency - Solar Panels & Electronics',
-  description: 'Leading provider of high-efficiency solar panels and electronic solutions',
-  keywords: 'solar panels, electronics, renewable energy, test agency',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await getSiteSettings();
+  const siteName = siteSettings?.siteName || 'Test Agency';
+  const tagline = siteSettings?.tagline || 'Solar Panels & Electronics';
+  
+  return {
+    title: `${siteName} - ${tagline}`,
+    description: `Leading provider of high-efficiency solar panels and electronic solutions - ${siteName}`,
+    keywords: `solar panels, electronics, renewable energy, ${siteName.toLowerCase()}`,
+  };
+}
 
 export default function RootLayout({
   children,

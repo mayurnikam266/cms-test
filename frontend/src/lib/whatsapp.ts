@@ -23,7 +23,7 @@ export function generateContactWhatsAppURL(data: {
 ${data.message}
 
 ---
-Sent from Test Agency Website
+Sent from Website Contact Form
   `.trim();
 
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;

@@ -201,7 +201,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Why Choose Test Agency Section */}
+      {/* Why Choose Us Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
@@ -210,10 +210,10 @@ export default async function HomePage() {
               TRUSTED & AFFORDABLE
             </p>
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Test Agency?
+              Why Choose Us?
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Test Agency stands out for its trusted expertise, high-quality solar and electronic products, 
+              We stand out for our trusted expertise, high-quality solar and electronic products, 
               affordable solutions, and 24×7 customer support. With ethical practices, transparent dealings, 
               customized project planning, and the ability to handle bulk orders across wide regions, we ensure 
               long-lasting, efficient, and reliable solutions for every customer.
