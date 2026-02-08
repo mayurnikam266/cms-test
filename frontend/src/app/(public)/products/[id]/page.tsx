@@ -43,10 +43,21 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     );
   }
 
-  const images = product.gallery || [];
-  if (product.featuredImage && !images.some(img => img._id === product.featuredImage._id)) {
-    images.unshift(product.featuredImage);
+  // Filter out invalid images without asset references
+  const validImages = (product.gallery || []).filter(img => img && img.asset);
+  
+  // Add featured image if it's valid and not already in gallery
+  if (product.featuredImage && product.featuredImage.asset) {
+    const featuredImageExists = validImages.some(img => 
+      img._id === product.featuredImage._id || 
+      (img.asset && product.featuredImage.asset && img.asset._ref === product.featuredImage.asset._ref)
+    );
+    if (!featuredImageExists) {
+      validImages.unshift(product.featuredImage);
+    }
   }
+  
+  const images = validImages;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

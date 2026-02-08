@@ -299,20 +299,26 @@ export async function submitQuoteRequest(data: {
 
 // Image URL Helper
 export function getImageUrl(source: any, width?: number): string {
-  if (!source) return '/images/placeholder.jpg'
+  // Check if source is null/undefined or missing asset reference
+  if (!source || !source.asset) return '/images/placeholder.jpg'
   
-  const builder = urlFor(source)
-  
-  if (width) {
-    return builder.width(width).url()
+  try {
+    const builder = urlFor(source)
+    
+    if (width) {
+      return builder.width(width).url()
+    }
+    
+    return builder.url()
+  } catch (error) {
+    console.error('Error building image URL:', error)
+    return '/images/placeholder.jpg'
   }
-  
-  return builder.url()
 }
 
 // Responsive Image URLs
 export function getResponsiveImageUrls(source: any) {
-  if (!source) {
+  if (!source || !source.asset) {
     return {
       thumbnail: '/images/placeholder.jpg',
       small: '/images/placeholder.jpg',
@@ -321,10 +327,20 @@ export function getResponsiveImageUrls(source: any) {
     }
   }
 
-  return {
-    thumbnail: urlFor(source).width(200).url(),
-    small: urlFor(source).width(400).url(),
-    medium: urlFor(source).width(800).url(),
-    large: urlFor(source).width(1200).url(),
+  try {
+    return {
+      thumbnail: urlFor(source).width(200).url(),
+      small: urlFor(source).width(400).url(),
+      medium: urlFor(source).width(800).url(),
+      large: urlFor(source).width(1200).url(),
+    }
+  } catch (error) {
+    console.error('Error building responsive image URLs:', error)
+    return {
+      thumbnail: '/images/placeholder.jpg',
+      small: '/images/placeholder.jpg',
+      medium: '/images/placeholder.jpg',
+      large: '/images/placeholder.jpg',
+    }
   }
 }
