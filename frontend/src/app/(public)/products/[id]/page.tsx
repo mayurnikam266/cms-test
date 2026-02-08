@@ -1,55 +1,50 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import { Product, getProductBySlug, getImageUrl } from '@/lib/sanity.queries';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Product, getProductBySlug, getAllProducts, getImageUrl } from '@/lib/sanity.queries';
+import ImageGallery from './ImageGallery';
 
-export default function ProductDetailPage() {
-  const params = useParams();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState(0);
+// Generate static params for all products
+export async function generateStaticParams() {
+  const products = await getAllProducts();
+  
+  return products.map((product) => ({
+    id: product.slug.current,
+  }));
+}
 
-  useEffect(() => {
-    if (params.id) {
-      loadProduct();
-    }
-  }, [params.id]);
+// Revalidate every 60 seconds
+export const revalidate = 60;
 
-  const loadProduct = async () => {
-    try {
-      const data = await getProductBySlug(params.id as string);
-      setProduct(data);
-    } catch (error) {
-      console.error('Failed to load product:', error);
-    } finally {
-      setLoading(false);
-    }
+interface ProductPageProps {
+  params: {
+    id: string;
   };
+}
 
-  if (loading) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-12 text-center">
-        <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-      </div>
-    );
-  }
+export default async function ProductDetailPage({ params }: ProductPageProps) {
+  const product = await getProductBySlug(params.id);
 
   if (!product) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-12 text-center">
-        <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
-        <Link href="/products" className="text-primary-600 hover:underline">
-          Back to Products
-        </Link>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+        <div className="py-20">
+          <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+            <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">Product Not Found</h1>
+          <p className="text-gray-600 mb-6">The product you're looking for doesn't exist or has been removed.</p>
+          <Link href="/products" className="btn-primary inline-block">
+            Back to Products
+          </Link>
+        </div>
       </div>
     );
   }
 
   const images = product.gallery || [];
-  if (product.featuredImage && !images.includes(product.featuredImage)) {
+  if (product.featuredImage && !images.some(img => img._id === product.featuredImage._id)) {
     images.unshift(product.featuredImage);
   }
 
@@ -60,47 +55,8 @@ export default function ProductDetailPage() {
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Images */}
-        <div>
-          <div className="relative bg-gray-100 rounded-xl overflow-hidden mb-4 aspect-square">
-            {images.length > 0 ? (
-              <Image
-                src={getImageUrl(images[selectedImage], 800)}
-                alt={product.name}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
-                <svg className="w-32 h-32 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
-              </div>
-            )}
-          </div>
-          {images.length > 1 && (
-            <div className="grid grid-cols-4 gap-2">
-              {images.map((image, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedImage(index)}
-                  className={`relative aspect-square rounded-lg overflow-hidden border-2 ${
-                    selectedImage === index ? 'border-primary-600' : 'border-transparent'
-                  }`}
-                >
-                  <Image
-                    src={getImageUrl(image, 200)}
-                    alt={`${product.name} ${index + 1}`}
-                    fill
-                    sizes="200px"
-                    className="object-cover"
-                  />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Images - Use Client Component for Gallery */}
+        <ImageGallery images={images} productName={product.name} />
 
         {/* Product Info */}
         <div>
@@ -109,7 +65,7 @@ export default function ProductDetailPage() {
           </div>
           <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
           <div className="text-4xl font-bold text-primary-600 mb-6">
-            ₹{parseFloat(String(product.price)).toFixed(2)}
+            ₹{parseFloat(String(product.price)).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </div>
 
           {product.inStock ? (
@@ -122,10 +78,12 @@ export default function ProductDetailPage() {
             </div>
           )}
 
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-3">Description</h2>
-            <p className="text-gray-700 leading-relaxed">{product.description}</p>
-          </div>
+          {product.description && (
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold mb-3">Description</h2>
+              <p className="text-gray-700 leading-relaxed">{product.description}</p>
+            </div>
+          )}
 
           {product.specifications && product.specifications.length > 0 && (
             <div className="mb-8">
@@ -145,7 +103,7 @@ export default function ProductDetailPage() {
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
-              href={`/products/${product.slug.current}/quote`}
+              href="/contact"
               className="btn-primary inline-block text-center flex-1 px-8 py-4 text-lg"
             >
               Get a Quote
