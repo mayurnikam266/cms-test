@@ -1,21 +1,35 @@
 import Link from 'next/link';
 import { Product, Category } from '@/types';
-import { getAllProducts, getAllCategories } from '@/lib/sanity.queries';
+import { getAllProducts, getAllCategories, getProductsByCategory } from '@/lib/sanity.queries';
 import ProductCard from '@/components/ProductCard';
 
 // Revalidate every 60 seconds
 export const revalidate = 60;
 
-export default async function ProductsPage() {
-  // Fetch all products and categories from Sanity
-  const products = await getAllProducts();
+interface ProductsPageProps {
+  searchParams: { category?: string };
+}
+
+export default async function ProductsPage({ searchParams }: ProductsPageProps) {
+  // Fetch all categories
   const categories = await getAllCategories();
+  
+  // Fetch products based on category filter
+  const categorySlug = searchParams.category;
+  const products = categorySlug 
+    ? await getProductsByCategory(categorySlug)
+    : await getAllProducts();
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Our Products</h1>
-        <p className="text-gray-600">Browse our complete collection of solar products</p>
+        <p className="text-gray-600">
+          {categorySlug 
+            ? `Browse our ${categories.find(c => c.slug.current === categorySlug)?.name || 'products'}` 
+            : 'Browse our complete collection of solar products'
+          }
+        </p>
       </div>
 
       {/* Category Filter */}
@@ -23,7 +37,11 @@ export default async function ProductsPage() {
         <div className="flex flex-wrap gap-3">
           <Link
             href="/products"
-            className="px-6 py-3 rounded-lg font-medium bg-primary-600 text-white shadow-lg transition-all hover:bg-primary-700"
+            className={`px-6 py-3 rounded-lg font-medium shadow-lg transition-all ${
+              !categorySlug
+                ? 'bg-primary-600 text-white hover:bg-primary-700'
+                : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+            }`}
           >
             All Products
           </Link>
@@ -31,7 +49,11 @@ export default async function ProductsPage() {
             <Link
               key={category._id}
               href={`/products?category=${category.slug.current}`}
-              className="px-6 py-3 rounded-lg font-medium bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 transition-all"
+              className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                categorySlug === category.slug.current
+                  ? 'bg-primary-600 text-white hover:bg-primary-700 shadow-lg'
+                  : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+              }`}
             >
               {category.name}
             </Link>
