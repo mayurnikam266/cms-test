@@ -114,7 +114,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
-              href="/contact"
+              href={`/products/${product.slug.current}/quote`}
               className="btn-primary inline-block text-center flex-1 px-8 py-4 text-lg"
             >
               Get a Quote
