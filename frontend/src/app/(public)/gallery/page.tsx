@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Gallery, getGalleryImages, getImageUrl } from '@/lib/sanity.queries';
 
 export default function GalleryPage() {
@@ -112,10 +113,12 @@ export default function GalleryPage() {
               onClick={() => setSelectedImage(image)}
             >
               <div className="aspect-w-16 aspect-h-9 relative h-72 overflow-hidden">
-                <img
+                <Image
                   src={getImageUrl(image.image, 800)}
                   alt={image.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Product, getProductBySlug, getImageUrl } from '@/lib/sanity.queries';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -61,12 +62,14 @@ export default function ProductDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Images */}
         <div>
-          <div className="bg-gray-100 rounded-xl overflow-hidden mb-4 aspect-square">
+          <div className="relative bg-gray-100 rounded-xl overflow-hidden mb-4 aspect-square">
             {images.length > 0 ? (
-              <img
+              <Image
                 src={getImageUrl(images[selectedImage], 800)}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
@@ -82,14 +85,16 @@ export default function ProductDetailPage() {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`aspect-square rounded-lg overflow-hidden border-2 ${
+                  className={`relative aspect-square rounded-lg overflow-hidden border-2 ${
                     selectedImage === index ? 'border-primary-600' : 'border-transparent'
                   }`}
                 >
-                  <img
+                  <Image
                     src={getImageUrl(image, 200)}
                     alt={`${product.name} ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="200px"
+                    className="object-cover"
                   />
                 </button>
               ))}

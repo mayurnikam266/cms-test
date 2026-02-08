@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { getSiteSettings, getImageUrl, type SiteSettings } from '@/lib/sanity.queries';
 
@@ -31,8 +32,8 @@ export default function Footer() {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               {logoUrl ? (
-                <div className="w-10 h-10 rounded-lg overflow-hidden shadow-md">
-                  <img src={logoUrl} alt={siteName} className="w-full h-full object-cover" />
+                <div className="relative w-10 h-10 rounded-lg overflow-hidden shadow-md">
+                  <Image src={logoUrl} alt={siteName} fill sizes="40px" className="object-cover" />
                 </div>
               ) : (
                 <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow-md">

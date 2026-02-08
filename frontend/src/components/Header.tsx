@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { getSiteSettings, getImageUrl, type SiteSettings } from '@/lib/sanity.queries';
 import LanguageSelector from './LanguageSelector';
@@ -33,8 +34,8 @@ export default function Header() {
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative">
               {logoUrl ? (
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden shadow-lg group-hover:shadow-orange-500/90 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 ring-2 ring-transparent group-hover:ring-orange-400">
-                  <img src={logoUrl} alt={siteName} className="w-full h-full object-cover" />
+                <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden shadow-lg group-hover:shadow-orange-500/90 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 ring-2 ring-transparent group-hover:ring-orange-400">
+                  <Image src={logoUrl} alt={siteName} fill sizes="56px" className="object-cover" />
                 </div>
               ) : (
                 <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-amber-400 via-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-orange-500/90 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 ring-2 ring-transparent group-hover:ring-orange-400">

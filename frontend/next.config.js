@@ -11,6 +11,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.cloudfront.net',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
     ],
   },
   env: {

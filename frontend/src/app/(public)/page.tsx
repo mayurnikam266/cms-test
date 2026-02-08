@@ -115,10 +115,12 @@ export default async function HomePage() {
                 <div key={announcement._id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 border border-amber-200">
                   {announcement.image && (
                     <div className="relative h-64 bg-gradient-to-br from-gray-100 to-gray-200">
-                      <img
+                      <Image
                         src={getImageUrl(announcement.image, 600)}
                         alt={announcement.title}
-                        className="w-full h-full object-contain"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-contain"
                       />
                     </div>
                   )}
